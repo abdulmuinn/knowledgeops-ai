@@ -1,0 +1,30 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    container_name: knowledgeops-postgres
+
+    environment:
+      POSTGRES_DB: knowledgeops
+      POSTGRES_USER: knowledgeops
+      POSTGRES_PASSWORD: knowledgeops
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - knowledgeops_postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U knowledgeops -d knowledgeops"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+    restart: unless-stopped
+
+volumes:
+  knowledgeops_postgres_data:

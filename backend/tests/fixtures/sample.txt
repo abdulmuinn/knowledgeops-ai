@@ -1,0 +1,5 @@
+KnowledgeOps AI Security Policy
+
+Production database access requires Security Team approval.
+
+Contractors cannot receive direct production access without explicit authorization.
