@@ -1,7 +1,7 @@
 """create document tables
 
 Revision ID: 7636fe593583
-Revises: 
+Revises:
 Create Date: 2026-09-28 16:54:40.961185
 
 """
