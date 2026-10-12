@@ -1,0 +1,29 @@
+KnowledgeOps AI Vendor and Contractor Access Policy
+
+Contractors and vendors receive access only when required
+for an approved business purpose. A company employee must
+act as the sponsor for every external worker who receives
+access to company systems.
+
+Contractor access to production systems requires approval
+from both the internal sponsor and the Security Team.
+Temporary vendor production access normally expires after
+eight hours and must be renewed if additional time is
+required.
+
+External workers must use individually assigned accounts.
+Shared vendor credentials are prohibited. Multi-factor
+authentication is required for privileged external access.
+
+Before confidential company information is shared with a
+vendor, the responsible team must confirm that an
+appropriate data-processing or confidentiality agreement
+is in place and that the required security review has
+been completed.
+
+The internal sponsor is responsible for requesting access
+removal when the engagement ends. Security may revoke
+access earlier if suspicious activity is detected.
+
+Vendor approval does not automatically authorize access
+to employee records or other restricted information.

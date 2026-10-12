@@ -1,0 +1,29 @@
+KnowledgeOps AI Access Control Policy
+
+Access to production systems follows the principle of
+least privilege. Employees must receive only the access
+required for their assigned responsibilities.
+
+Standard production access requires approval from both
+the employee's direct manager and the Security Team.
+Database administrator privileges require an additional
+review by the infrastructure owner.
+
+Emergency production access may be granted during a
+critical incident when normal approval would cause an
+unacceptable operational delay. Emergency access expires
+automatically after four hours unless it is explicitly
+renewed by the Security Team.
+
+Privileged accounts must use multi-factor authentication.
+Privileged access is reviewed every 30 days. Accounts
+that no longer have a valid business justification must
+be disabled.
+
+Employees must never share production credentials.
+Access logs are retained for security review and may be
+examined during incident investigations.
+
+Requests for permanent access must include the system
+name, requested role, business justification, and the
+expected duration of access.

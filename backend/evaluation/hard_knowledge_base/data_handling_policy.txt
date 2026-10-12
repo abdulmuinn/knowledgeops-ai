@@ -1,0 +1,29 @@
+KnowledgeOps AI Data Handling Policy
+
+Company information is classified according to its
+sensitivity. Confidential information includes customer
+records, employee information, security data, and
+non-public business information.
+
+Confidential information must be encrypted while in
+transit and when stored on systems that support approved
+encryption controls.
+
+External sharing of confidential information requires a
+valid business purpose and approval from the responsible
+data owner. Security review may also be required when data
+is shared through a new vendor or technical platform.
+
+Employees must not copy confidential information into
+personal cloud-storage accounts or unapproved external
+services.
+
+Data should be retained only for the period required by
+the applicable retention schedule, contractual
+requirement, or legal obligation. When the retention
+period expires, information should be deleted or archived
+according to the approved process.
+
+Suspected unauthorized disclosure must be reported to the
+Security Team. Personal-data incidents may also require
+escalation under the Incident Response Policy.

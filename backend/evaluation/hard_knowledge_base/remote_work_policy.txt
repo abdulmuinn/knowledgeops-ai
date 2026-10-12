@@ -1,0 +1,30 @@
+KnowledgeOps AI Remote Work Policy
+
+Employees may normally work remotely for up to three
+days per week. Working remotely for more than three days
+in the same week requires approval from the employee's
+direct manager.
+
+Company-managed devices must be used for access to
+internal systems. Employees working outside a company
+office must connect through the corporate VPN before
+accessing internal applications or confidential data.
+
+Public Wi-Fi should not be used for confidential work
+unless the employee is connected through the corporate
+VPN. Devices must remain protected by screen locking and
+disk encryption.
+
+Working temporarily from another country requires both
+manager and Human Resources approval. The request should
+normally be submitted at least ten business days before
+travel begins.
+
+Remote workers remain responsible for attending required
+meetings and maintaining reasonable availability during
+their agreed working hours.
+
+Approval for remote work does not automatically grant
+additional access to production systems. Production
+access remains governed by the separate Access Control
+Policy.

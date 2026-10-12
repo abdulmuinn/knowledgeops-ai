@@ -1,0 +1,152 @@
+[
+  {
+    "query": "Who must approve standard employee access to production systems?",
+    "expected_source": "access_control_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "How long does emergency production access last before it expires?",
+    "expected_source": "access_control_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "How often are privileged access permissions reviewed?",
+    "expected_source": "access_control_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "Can an employee work from home four days in one week without approval?",
+    "expected_source": "remote_work_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "What connection should remote employees use before opening internal applications?",
+    "expected_source": "remote_work_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "What approvals are needed to temporarily work from another country?",
+    "expected_source": "remote_work_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "At what expense amount does a receipt become mandatory?",
+    "expected_source": "expense_travel_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "What is the normal deadline for filing an expense report?",
+    "expected_source": "expense_travel_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "Who must authorize international business travel before booking?",
+    "expected_source": "expense_travel_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "How much advance notice is normally needed for three consecutive annual leave days?",
+    "expected_source": "leave_attendance_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "Who approves normal annual leave?",
+    "expected_source": "leave_attendance_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "What should an employee do if illness unexpectedly prevents them from working?",
+    "expected_source": "leave_attendance_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "What is the acknowledgement target for a Priority 1 incident?",
+    "expected_source": "incident_response_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "Who coordinates teams during the highest severity incident?",
+    "expected_source": "incident_response_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "Who must be informed when a personal data breach is confirmed?",
+    "expected_source": "incident_response_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "What approvals are required before a contractor can access production?",
+    "expected_source": "vendor_contractor_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "How long does temporary vendor production access normally remain valid?",
+    "expected_source": "vendor_contractor_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "What must be checked before confidential information is sent to a vendor?",
+    "expected_source": "vendor_contractor_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "How many characters must a password contain?",
+    "expected_source": "password_identity_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "Which identities are explicitly required to use multi-factor authentication?",
+    "expected_source": "password_identity_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "How frequently must service-account permissions be reviewed?",
+    "expected_source": "password_identity_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "How should confidential information be protected while being transmitted?",
+    "expected_source": "data_handling_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "Who approves sharing confidential company information externally?",
+    "expected_source": "data_handling_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "Can employees store confidential files in their personal cloud accounts?",
+    "expected_source": "data_handling_policy.txt",
+    "answerable": true
+  },
+  {
+    "query": "What is the annual dental insurance reimbursement limit?",
+    "expected_source": null,
+    "answerable": false
+  },
+  {
+    "query": "What time does the employee cafeteria open for breakfast?",
+    "expected_source": null,
+    "answerable": false
+  },
+  {
+    "query": "How many weeks of paid parental leave does the company provide?",
+    "expected_source": null,
+    "answerable": false
+  },
+  {
+    "query": "How often are employee laptops replaced with new hardware?",
+    "expected_source": null,
+    "answerable": false
+  },
+  {
+    "query": "What percentage commission do sales employees earn?",
+    "expected_source": null,
+    "answerable": false
+  },
+  {
+    "query": "Does the company reimburse monthly office parking fees?",
+    "expected_source": null,
+    "answerable": false
+  }
+]
