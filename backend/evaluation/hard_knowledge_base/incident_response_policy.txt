@@ -1,0 +1,29 @@
+KnowledgeOps AI Incident Response Policy
+
+Security and operational incidents are classified by
+severity. Priority 1 incidents represent the highest
+level of operational impact.
+
+A Priority 1 incident must be acknowledged within
+15 minutes after it is reported. The designated Incident
+Commander coordinates the response, assigns owners, and
+maintains the incident timeline.
+
+Engineers may request emergency production access during
+a critical incident. Such access remains subject to the
+emergency rules in the Access Control Policy and must not
+be treated as permanent authorization.
+
+Suspected exposure of personal or confidential data must
+be escalated to the Security Team. A suspected personal
+data breach must also be reported to the Privacy Officer
+within one hour of confirmation.
+
+Incident communications should distinguish verified facts
+from assumptions. Major decisions and remediation actions
+must be recorded.
+
+A post-incident review for a Priority 1 incident must be
+completed within five business days. The review should
+identify contributing factors, corrective actions, and
+owners for follow-up work.

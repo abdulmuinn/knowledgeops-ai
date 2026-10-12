@@ -1,0 +1,42 @@
+[
+  {
+    "query": "When is a receipt required for an expense?",
+    "expected_source": "expense_policy.txt"
+  },
+  {
+    "query": "How long do employees have to submit expense claims?",
+    "expected_source": "expense_policy.txt"
+  },
+  {
+    "query": "How many days per week can employees work remotely?",
+    "expected_source": "remote_work_policy.txt"
+  },
+  {
+    "query": "Who must approve remote work beyond three days?",
+    "expected_source": "remote_work_policy.txt"
+  },
+  {
+    "query": "How early should a three-day annual leave request be submitted?",
+    "expected_source": "leave_policy.txt"
+  },
+  {
+    "query": "Who approves annual leave?",
+    "expected_source": "leave_policy.txt"
+  },
+  {
+    "query": "How quickly must a Priority 1 incident be acknowledged?",
+    "expected_source": "incident_response.txt"
+  },
+  {
+    "query": "Who coordinates the response to a Priority 1 incident?",
+    "expected_source": "incident_response.txt"
+  },
+  {
+    "query": "What is the minimum password length?",
+    "expected_source": "password_policy.txt"
+  },
+  {
+    "query": "Which accounts require multi-factor authentication?",
+    "expected_source": "password_policy.txt"
+  }
+]
