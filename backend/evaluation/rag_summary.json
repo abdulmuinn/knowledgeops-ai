@@ -1,0 +1,22 @@
+{
+  "model": "gemini-3.5-flash-lite",
+  "top_k": 3,
+  "rerank_top_n": 3,
+  "max_sources": 3,
+  "min_dense_score": null,
+  "total": 30,
+  "correct_decisions": 30,
+  "decision_accuracy": 1.0,
+  "answerable_total": 24,
+  "answerable_correct": 24,
+  "answerable_accuracy": 1.0,
+  "unanswerable_total": 6,
+  "abstention_correct": 6,
+  "abstention_accuracy": 1.0,
+  "citation_required": 24,
+  "citation_present": 24,
+  "citation_presence_rate": 1.0,
+  "source_required": 24,
+  "source_correct": 24,
+  "source_accuracy": 1.0
+}
