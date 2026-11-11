@@ -1,7 +1,6 @@
 from fastapi import (
     APIRouter,
     Depends,
-    HTTPException,
 )
 
 from knowledgeops.agent.orchestrator import (
@@ -23,10 +22,11 @@ router = APIRouter(
 
 
 def get_agent_orchestrator() -> AgentOrchestrator:
-    raise HTTPException(
-        status_code=503,
-        detail="agent service is not configured",
+    from knowledgeops.agent.runtime import (
+        get_agent_orchestrator as get_runtime_orchestrator,
     )
+
+    return get_runtime_orchestrator()
 
 
 @router.post(

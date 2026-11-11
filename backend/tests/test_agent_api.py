@@ -76,25 +76,6 @@ def test_agent_run_returns_rag_response() -> None:
         app.dependency_overrides.clear()
 
 
-def test_agent_run_requires_configured_service() -> None:
-    app.dependency_overrides.clear()
-
-    response = client.post(
-        "/agent/run",
-        json={
-            "message": "What is the access policy?"
-        },
-    )
-
-    assert response.status_code == 503
-
-    assert response.json() == {
-        "detail": (
-            "agent service is not configured"
-        )
-    }
-
-
 def test_agent_run_rejects_empty_message() -> None:
     app.dependency_overrides[
         get_agent_orchestrator
