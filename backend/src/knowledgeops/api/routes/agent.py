@@ -1,6 +1,16 @@
+import uuid
+
+from knowledgeops.agent.approval_store import (
+    ApprovalNotFoundError,
+)
+from knowledgeops.agent.policy import (
+    ApprovalNotApprovedError,
+)
+
 from fastapi import (
     APIRouter,
     Depends,
+    HTTPException,
 )
 
 from knowledgeops.agent.orchestrator import (
@@ -42,6 +52,37 @@ def run_agent(
     result = orchestrator.handle(
         request.message
     )
+
+    return map_agent_run_result(
+        result
+    )
+
+@router.post(
+    "/resume/{approval_id}",
+    response_model=AgentRunResponse,
+)
+def resume_agent(
+    approval_id: uuid.UUID,
+    orchestrator: AgentOrchestrator = Depends(
+        get_agent_orchestrator
+    ),
+) -> AgentRunResponse:
+    try:
+        result = orchestrator.resume(
+            approval_id
+        )
+
+    except ApprovalNotFoundError as exc:
+        raise HTTPException(
+            status_code=404,
+            detail="approval not found",
+        ) from exc
+
+    except ApprovalNotApprovedError as exc:
+        raise HTTPException(
+            status_code=409,
+            detail="approval is not approved",
+        ) from exc
 
     return map_agent_run_result(
         result

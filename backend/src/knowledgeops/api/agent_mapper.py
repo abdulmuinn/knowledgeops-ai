@@ -8,7 +8,20 @@ from knowledgeops.api.agent_models import (
     SourceResponse,
     ToolResultResponse,
 )
+from knowledgeops.agent.models import (
+    ApprovalRequest,
+)
 
+def map_approval_request(
+    request: ApprovalRequest,
+) -> ApprovalResponse:
+    return ApprovalResponse(
+        approval_id=request.approval_id,
+        status=request.status.value,
+        tool_name=request.tool_call.tool_name,
+        arguments=request.tool_call.arguments,
+        reason=request.reason,
+    )
 
 def map_agent_run_result(
     result: AgentRunResult,
@@ -58,16 +71,8 @@ def map_agent_run_result(
             tool_arguments=(
                 result.tool_call.arguments
             ),
-            approval=ApprovalResponse(
-                approval_id=approval.approval_id,
-                status=approval.status.value,
-                tool_name=(
-                    approval.tool_call.tool_name
-                ),
-                arguments=(
-                    approval.tool_call.arguments
-                ),
-                reason=approval.reason,
+            approval=map_approval_request(
+                approval
             ),
         )
 

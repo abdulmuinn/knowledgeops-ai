@@ -113,3 +113,11 @@ def get_agent_orchestrator() -> AgentOrchestrator:
         executor=executor,
         rag_answerer=_answer_with_rag,
     )
+
+def get_human_approval_service(
+) -> HumanApprovalService:
+    return (
+        get_agent_orchestrator()
+        .executor
+        .approval_service
+    )
