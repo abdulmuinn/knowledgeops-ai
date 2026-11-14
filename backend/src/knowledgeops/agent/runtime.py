@@ -1,3 +1,4 @@
+import os
 from functools import lru_cache
 
 from knowledgeops.agent.approval_service import (
@@ -14,6 +15,9 @@ from knowledgeops.agent.planner import (
 )
 from knowledgeops.agent.policy import (
     ApprovalPolicy,
+)
+from knowledgeops.integrations.n8n import (
+    N8NAccessRequestClient,
 )
 from knowledgeops.llm.gemini_client import (
     GeminiClient,
@@ -85,9 +89,26 @@ def _answer_with_rag(
 
 @lru_cache
 def get_agent_orchestrator() -> AgentOrchestrator:
+    webhook_url = os.getenv(
+        "N8N_ACCESS_REQUEST_WEBHOOK_URL",
+        "",
+    ).strip()
+
+    if not webhook_url:
+        raise RuntimeError(
+            "N8N_ACCESS_REQUEST_WEBHOOK_URL "
+            "is not configured"
+        )
+
+    n8n_client = N8NAccessRequestClient(
+        webhook_url=webhook_url,
+    )
+
     registry = ToolRegistry(
         [
-            CreateAccessRequestTool(),
+            CreateAccessRequestTool(
+                client=n8n_client,
+            ),
         ]
     )
 
@@ -113,6 +134,7 @@ def get_agent_orchestrator() -> AgentOrchestrator:
         executor=executor,
         rag_answerer=_answer_with_rag,
     )
+
 
 def get_human_approval_service(
 ) -> HumanApprovalService:

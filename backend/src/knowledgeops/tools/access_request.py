@@ -1,7 +1,8 @@
-import uuid
-
 from knowledgeops.agent.models import (
     ToolRiskLevel,
+)
+from knowledgeops.integrations.n8n import (
+    N8NAccessRequestClient,
 )
 from knowledgeops.tools.base import (
     ToolDefinition,
@@ -9,6 +10,12 @@ from knowledgeops.tools.base import (
 
 
 class CreateAccessRequestTool:
+    def __init__(
+        self,
+        client: N8NAccessRequestClient,
+    ) -> None:
+        self.client = client
+
     @property
     def definition(
         self,
@@ -74,11 +81,13 @@ class CreateAccessRequestTool:
             arguments
         )
 
-        return {
-            "request_id": (
-                f"AR-{uuid.uuid4().hex[:8].upper()}"
-            ),
-            "system": arguments["system"],
-            "role": arguments["role"],
-            "status": "submitted",
-        }
+        system = arguments["system"]
+        role = arguments["role"]
+
+        assert isinstance(system, str)
+        assert isinstance(role, str)
+
+        return self.client.create_access_request(
+            system=system,
+            role=role,
+        )

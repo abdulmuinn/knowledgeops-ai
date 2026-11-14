@@ -8,8 +8,51 @@ from knowledgeops.tools.access_request import (
 )
 
 
+class FakeN8NClient:
+    def __init__(self) -> None:
+        self.calls: list[
+            dict[str, str]
+        ] = []
+
+    def create_access_request(
+        self,
+        *,
+        system: str,
+        role: str,
+    ) -> dict[str, object]:
+        self.calls.append(
+            {
+                "system": system,
+                "role": role,
+            }
+        )
+
+        return {
+            "request_id": "AR-N8N1234",
+            "system": system,
+            "role": role,
+            "status": "submitted",
+            "created_at": (
+                "2026-11-14T04:00:00Z"
+            ),
+        }
+
+
+def make_tool() -> tuple[
+    CreateAccessRequestTool,
+    FakeN8NClient,
+]:
+    client = FakeN8NClient()
+
+    tool = CreateAccessRequestTool(
+        client=client,  # type: ignore[arg-type]
+    )
+
+    return tool, client
+
+
 def test_access_request_tool_definition() -> None:
-    tool = CreateAccessRequestTool()
+    tool, _ = make_tool()
 
     definition = tool.definition
 
@@ -29,8 +72,8 @@ def test_access_request_tool_definition() -> None:
     )
 
 
-def test_access_request_tool_executes() -> None:
-    tool = CreateAccessRequestTool()
+def test_access_request_tool_delegates_to_client() -> None:
+    tool, client = make_tool()
 
     result = tool.execute(
         {
@@ -39,29 +82,28 @@ def test_access_request_tool_executes() -> None:
         }
     )
 
+    assert client.calls == [
+        {
+            "system": "production",
+            "role": "read-only",
+        }
+    ]
+
     assert isinstance(
         result,
         dict,
     )
 
-    assert result["system"] == "production"
-    assert result["role"] == "read-only"
+    assert (
+        result["request_id"]
+        == "AR-N8N1234"
+    )
+
     assert result["status"] == "submitted"
-
-    request_id = result["request_id"]
-
-    assert isinstance(
-        request_id,
-        str,
-    )
-
-    assert request_id.startswith(
-        "AR-"
-    )
 
 
 def test_access_request_rejects_empty_system() -> None:
-    tool = CreateAccessRequestTool()
+    tool, client = make_tool()
 
     with pytest.raises(
         ValueError,
@@ -74,9 +116,11 @@ def test_access_request_rejects_empty_system() -> None:
             }
         )
 
+    assert client.calls == []
+
 
 def test_access_request_rejects_empty_role() -> None:
-    tool = CreateAccessRequestTool()
+    tool, client = make_tool()
 
     with pytest.raises(
         ValueError,
@@ -88,3 +132,5 @@ def test_access_request_rejects_empty_role() -> None:
                 "role": "",
             }
         )
+
+    assert client.calls == []
