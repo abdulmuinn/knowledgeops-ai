@@ -1,0 +1,109 @@
+{
+  "name": "KnowledgeOps - Create Access Request",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "knowledgeops/access-request",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "956c54ad-96a7-4e97-b7ba-a315292c368b",
+      "name": "Webhook",
+      "webhookId": "b1fb18db-9a9f-4cc9-a524-ff4de85e8d44"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body ?? {};\n\nconst system = body.system;\nconst role = body.role;\n\nif (\n  typeof system !== 'string' ||\n  !system.trim()\n) {\n  throw new Error(\n    'system must be a non-empty string'\n  );\n}\n\nif (\n  typeof role !== 'string' ||\n  !role.trim()\n) {\n  throw new Error(\n    'role must be a non-empty string'\n  );\n}\n\nreturn [\n  {\n    json: {\n      system: system.trim(),\n      role: role.trim(),\n      validated: true,\n    },\n  },\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "064cae59-935a-4516-b1ca-05a72081a2ef",
+      "name": "Validate Access Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\n\nconst requestId = [\n  'AR',\n  Date.now().toString(36).toUpperCase(),\n  Math.random()\n    .toString(36)\n    .slice(2, 6)\n    .toUpperCase(),\n].join('-');\n\nreturn [\n  {\n    json: {\n      request_id: requestId,\n      system: input.system,\n      role: input.role,\n      status: 'submitted',\n      created_at: new Date().toISOString(),\n    },\n  },\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        0
+      ],
+      "id": "1b716a9a-56a5-4282-8ec4-af94d37bf75c",
+      "name": "Create Access Request"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        672,
+        0
+      ],
+      "id": "fe1a4d75-757d-48b3-b7a7-6441af560ebf",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Validate Access Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Access Request": {
+      "main": [
+        [
+          {
+            "node": "Create Access Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Access Request": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "529bae09-3729-42bf-ab45-f66223bea5b8",
+  "meta": {
+    "instanceId": "cb4e5e31e052dade42a0051f56e820618e4fadf7535f8b68623641a2d1506392"
+  },
+  "nodeGroups": [],
+  "id": "qgkG0GwbECDS9NgU",
+  "tags": []
+}
