@@ -26,5 +26,147 @@ services:
 
     restart: unless-stopped
 
+
+  n8n-bootstrap:
+    image: docker.n8n.io/n8nio/n8n:2.47.5
+    container_name: knowledgeops-n8n-bootstrap
+
+    entrypoint:
+      - /bin/sh
+      - -c
+
+    command:
+      - |
+        set -e
+
+        if [ ! -f /home/node/.n8n/.knowledgeops_bootstrapped_v1 ]; then
+          echo "Bootstrapping KnowledgeOps n8n workflow..."
+
+          n8n import:workflow \
+            --input=/workflows/create_access_request.json
+
+          n8n publish:workflow \
+            --id=qgkG0GwbECDS9NgU
+
+          touch /home/node/.n8n/.knowledgeops_bootstrapped_v1
+
+          echo "KnowledgeOps n8n bootstrap completed."
+        else
+          echo "KnowledgeOps n8n workflow already bootstrapped."
+        fi
+
+    volumes:
+      - knowledgeops_n8n_data:/home/node/.n8n
+      - ./n8n/workflows:/workflows:ro
+
+    restart: "no"
+
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:2.47.5
+    container_name: knowledgeops-n8n
+
+    depends_on:
+      n8n-bootstrap:
+        condition: service_completed_successfully
+
+    environment:
+      N8N_PORT: 5678
+      N8N_PROTOCOL: http
+      GENERIC_TIMEZONE: Asia/Jakarta
+      TZ: Asia/Jakarta
+
+    ports:
+      - "127.0.0.1:5678:5678"
+
+    volumes:
+      - knowledgeops_n8n_data:/home/node/.n8n
+      - ./n8n/workflows:/workflows:ro
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:5678/healthz').then(r => { if (!r.ok) process.exit(1) }).catch(() => process.exit(1))"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+    restart: unless-stopped
+
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    image: knowledgeops-backend:final
+    container_name: knowledgeops-backend
+
+    env_file:
+      - .env
+
+    environment:
+      APP_ENV: production
+
+      DATABASE_URL: >-
+        postgresql+psycopg://knowledgeops:knowledgeops@postgres:5432/knowledgeops
+
+      N8N_ACCESS_REQUEST_WEBHOOK_URL: >-
+        http://n8n:5678/webhook/knowledgeops/access-request
+
+    command:
+      [
+        "sh",
+        "-c",
+        "alembic upgrade head && python -m uvicorn knowledgeops.main:app --host 0.0.0.0 --port 8000"
+      ]
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - knowledgeops_backend_hf_cache:/home/appuser/.cache/huggingface
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+      n8n:
+        condition: service_healthy
+
+    restart: unless-stopped
+
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+
+    image: knowledgeops-frontend:final
+    container_name: knowledgeops-frontend
+
+    environment:
+      NODE_ENV: production
+      KNOWLEDGEOPS_API_URL: http://backend:8000
+
+    ports:
+      - "3000:3000"
+
+    depends_on:
+      backend:
+        condition: service_healthy
+
+    restart: unless-stopped
+
+
 volumes:
   knowledgeops_postgres_data:
+
+  knowledgeops_n8n_data:
+
+  knowledgeops_backend_hf_cache:
